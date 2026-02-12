@@ -1,0 +1,535 @@
+\documentclass[10pt]{extarticle}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{cancel}
+\usepackage{tcolorbox}
+\usepackage{bold-extra}
+\usepackage{multicol}
+\allowdisplaybreaks
+\title{\centering\Large\textsc{\textbf{Applications of Linear Algebra: Problem Set 1}}}
+\author{\large \textsc{Rento Saijo}}
+\date{Feruary 4, 2026}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\textsc{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand{\headrulewidth}{0pt}
+\tcbset{colframe=darkgray!100, arc=0.1mm, boxrule=2pt, boxsep=1mm}
+\newtcolorbox{problem}[1][]{title={\textsc{#1}}}
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{0.5em}
+
+\begin{problem}
+[Problem 1]
+The following table shows the team home runs (HR) and team wins for the 2019 season for six teams in the American League of Major League Baseball: New York Yankees (NYY), Baltimore Orlioles (Balt), Cleveland Indians (Cleve), Chicago White Sox (CWS), Texas Rangers (TX), and Los Angeles Angels (LAA).
+\begin{center}
+\begin{tabular}{l|l|l|l|l|l|l}
+Team & NYY & Balt & Cleve & CWS & TX & LAA \\ \hline
+HR & 306 & 213 & 223 & 182 & 223 & 220 \\ \hline
+Wins & 103 & 54 & 93 & 72 & 78 & 72
+\end{tabular}
+\end{center}
+\begin{enumerate}[label=(\alph*)]
+\item Before calculating anything, make a guess about the correlation coefficient between home runs and wins.
+\item Now calculate the correlation coeffiecient between the two quantities. Did the result agree with your guess?
+\end{enumerate}
+\end{problem}
+
+\begin{equation}
+2+3 = 4
+\label{cat}
+\end{equation}
+
+Equation~\ref{cat}
+
+\begin{enumerate}[label=(\alph*)]
+\item We'd expect a positive, moderately strong correlation: teams that hit more home runs tend to win more games (i.e., we'd expect a team with above average number of home runs to have above average number of wins). Perhaps, something along the lines of $r=0.75$ would be reasonable.
+\item Let
+\[
+\vec{x}=\begin{bmatrix}306\\213\\223\\182\\223\\220\end{bmatrix},\qquad
+\vec{y}=\begin{bmatrix}103\\54\\93\\72\\78\\72\end{bmatrix}.
+\]
+The Pearson correlation coefficient is
+\[
+r=\frac{(\vec{x}-\bar x\,\vec{\mathbf{1}})\cdot (\vec{y}-\bar y\,\vec{\mathbf{1}})}{\|\vec{x}-\bar x\,\vec{\mathbf{1}}\|\,\|\vec{y}-\bar y\,\vec{\mathbf{1}}\|}.
+\]
+Let us compute the means:
+\[
+\bar x=\frac{306+213+223+182+223+220}{6}=\frac{1367}{6},
+\qquad
+\bar y=\frac{103+54+93+72+78+72}{6}=\frac{472}{6}.
+\]
+Thus the de-meaned vectors are
+\[
+\vec{x}-\bar x\,\vec{\mathbf{1}}
+=
+\frac{1}{6}
+\begin{bmatrix}
+469\\
+-89\\
+-29\\
+-275\\
+-29\\
+-47
+\end{bmatrix},
+\qquad
+\vec{y}-\bar y\,\vec{\mathbf{1}}
+=
+\frac{1}{6}
+\begin{bmatrix}
+146\\
+-236\\
+86\\
+-40\\
+-4\\
+-40
+\end{bmatrix}.
+\]
+Let us compute the dot product:
+\begin{align}
+(\vec{x}-\bar x\,\vec{\mathbf{1}})\cdot (\vec{y}-\bar y\,\vec{\mathbf{1}})
+&=\frac{1}{36}\Big(469\cdot146+(-89)(-236)+(-29)(86)+(-275)(-40)+(-29)(-4)+(-47)(-40)\Big) \notag \\
+&=\frac{92148}{36}.
+\end{align}
+Let us compute the norms:
+\[
+\|\vec{x}-\bar x\,\vec{\mathbf{1}}\|
+=
+\sqrt{\frac{1}{36}\Big(469^2+89^2+29^2+275^2+29^2+47^2\Big)}
+=
+\sqrt{\frac{351390}{36}},
+\]
+\[
+\|\vec{y}-\bar y\,\vec{\mathbf{1}}\|
+=
+\sqrt{\frac{1}{36}\Big(146^2+236^2+86^2+40^2+4^2+40^2\Big)}
+=
+\sqrt{\frac{47064}{36}}.
+\]
+Therefore,
+\[
+r
+=
+\frac{\frac{92148}{36}}{\sqrt{\frac{351390}{36}}\sqrt{\frac{47064}{36}}}
+=
+\frac{92148}{\sqrt{351390\cdot47064}}=0.716.
+\]
+So the correlation between home runs and wins is $\boxed{r=0.716}$, which is a fairly strong positive correlation and is consistent with the guess in part (a).
+\end{enumerate}
+
+\begin{problem}
+[Problem 2]
+The table here shows a term-document array based on a library of five mathematical books.
+\begin{minipage}{0.45\textwidth}
+\hfill
+\begin{tabular}{l | l | l | l | l | l}
+& B1 & B2 & B3 & B4 & B5 \\ \hline
+Dimension & 0 & 1 & 1 & 0 & 0\\ \hline
+Geometry & 1 & 1 & 1 & 0 & 1\\ \hline
+Probability & 1 & 1 & 1 & 1 & 0 \\ \hline
+Statistics & 0 & 1 & 0 & 1 & 0 \\ \hline
+Symmetry & 0 & 0 & 1 & 0 & 1 \\ \hline
+\end{tabular}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{itemize}
+\item[B1] Dunham, \emph{Euler: The Master of Us All};
+\item[B2] Osserman, \emph{Poetry of the Unvierse};
+\item[B3] Pappas, \emph{The Joy of Mathematics};
+\item[B4] P\"olya, \emph{Patterns of Plausible Inference};
+\item[B5] Yaglom, \emph{Geometric Transformations I}
+\end{itemize}
+\end{minipage}
+\medskip
+
+For each query $\mathbf{q}$ given below, apply the algorithm from class to determine which documents are relevant to the query with a threshold of (a) $\alpha=0.5$ and (b) $\alpha=0.8$.
+\begin{enumerate}[label=\roman*.]
+\item $\mathbf{q}$ is ``geometry" and ``probability"
+\item $\mathbf{q}$ is ``geometry" and ``symmetry"
+\item $\mathbf{q}$ is ``dimension" and ``statistics"
+\end{enumerate}
+\end{problem}
+
+\begin{enumerate}[label=\roman*.]
+\item Fix the term order as
+\[
+(\text{Dimension},\text{Geometry},\text{Probability},\text{Statistics},\text{Symmetry}).
+\]
+Thus, the document vectors are
+\[
+\vec{a}_1=\begin{bmatrix}0\\1\\1\\0\\0\end{bmatrix},\quad
+\vec{a}_2=\begin{bmatrix}1\\1\\1\\1\\0\end{bmatrix},\quad
+\vec{a}_3=\begin{bmatrix}1\\1\\1\\0\\1\end{bmatrix},\quad
+\vec{a}_4=\begin{bmatrix}0\\0\\1\\1\\0\end{bmatrix},\quad
+\vec{a}_5=\begin{bmatrix}0\\1\\0\\0\\1\end{bmatrix}.
+\]
+We compute
+\[
+\cos\theta=\frac{\vec{a}\cdot\vec{q}}{\|\vec{a}\|\|\vec{q}\|},
+\]
+and include a document when $\cos\theta>\alpha$.
+For this query,
+\[
+\vec{q}=\begin{bmatrix}0\\1\\1\\0\\0\end{bmatrix},\qquad \|\vec{q}\|=\sqrt{2}.
+\]
+Also,
+\[
+\|\vec{a}_1\|=\sqrt{2},\qquad \|\vec{a}_2\|=2,\qquad \|\vec{a}_3\|=2,\qquad \|\vec{a}_4\|=\sqrt{2},\qquad \|\vec{a}_5\|=\sqrt{2}.
+\]
+Let us compute the dot products:
+\[
+\vec{a}_1\cdot\vec{q}=2,\qquad
+\vec{a}_2\cdot\vec{q}=2,\qquad
+\vec{a}_3\cdot\vec{q}=2,\qquad
+\vec{a}_4\cdot\vec{q}=1,\qquad
+\vec{a}_5\cdot\vec{q}=1.
+\]
+Thus
+\begin{align*}
+\cos\theta_1&=\frac{2}{\sqrt{2}\sqrt{2}}=1,\\
+\cos\theta_2&=\frac{2}{2\sqrt{2}}=\frac{1}{\sqrt{2}},\qquad
+\cos\theta_3=\frac{2}{2\sqrt{2}}=\frac{1}{\sqrt{2}},\\
+\cos\theta_4&=\frac{1}{\sqrt{2}\sqrt{2}}=\frac{1}{2},\qquad
+\cos\theta_5=\frac{1}{\sqrt{2}\sqrt{2}}=\frac{1}{2}.
+\end{align*}
+For $\alpha=0.5$, we include $B1,B2,B3$ (note $B4$ and $B5$ have $\cos\theta=\frac{1}{2}$, so they are not included since we require $\cos\theta>\alpha$).
+For $\alpha=0.8$, we only include $B1$.
+\item Similarly, for this query,
+\[
+\vec{q}=\begin{bmatrix}0\\1\\0\\0\\1\end{bmatrix},\qquad \|\vec{q}\|=\sqrt{2}.
+\]
+Let us compute the dot products:
+\[
+\vec{a}_1\cdot\vec{q}=1,\qquad
+\vec{a}_2\cdot\vec{q}=1,\qquad
+\vec{a}_3\cdot\vec{q}=2,\qquad
+\vec{a}_4\cdot\vec{q}=0,\qquad
+\vec{a}_5\cdot\vec{q}=2.
+\]
+Thus
+\[
+\cos\theta_1=\frac{1}{\sqrt{2}\sqrt{2}}=\frac{1}{2},\qquad
+\cos\theta_2=\frac{1}{2\sqrt{2}},\qquad
+\cos\theta_3=\frac{2}{2\sqrt{2}}=\frac{1}{\sqrt{2}},\qquad
+\cos\theta_4=0,\qquad
+\cos\theta_5=\frac{2}{\sqrt{2}\sqrt{2}}=1.
+\]
+For $\alpha=0.5$, we include $B3,B5$ (note $B1$ has $\cos\theta=\frac{1}{2}$, so it is not included).
+For $\alpha=0.8$, we only include $B5$.
+\item Similarly, for this query,
+\[
+\vec{q}=\begin{bmatrix}1\\0\\0\\1\\0\end{bmatrix},\qquad \|\vec{q}\|=\sqrt{2}.
+\]
+Let us compute the dot products:
+\[
+\vec{a}_1\cdot\vec{q}=0,\qquad
+\vec{a}_2\cdot\vec{q}=2,\qquad
+\vec{a}_3\cdot\vec{q}=1,\qquad
+\vec{a}_4\cdot\vec{q}=1,\qquad
+\vec{a}_5\cdot\vec{q}=0.
+\]
+Thus
+\[
+\cos\theta_1=0,\qquad
+\cos\theta_2=\frac{2}{2\sqrt{2}}=\frac{1}{\sqrt{2}},\qquad
+\cos\theta_3=\frac{1}{2\sqrt{2}},\qquad
+\cos\theta_4=\frac{1}{\sqrt{2}\sqrt{2}}=\frac{1}{2},\qquad
+\cos\theta_5=0.
+\]
+For $\alpha=0.5$, we only include $B2$ (note $B4$ has $\cos\theta=\frac{1}{2}$, so it is not included).
+For $\alpha=0.8$, we won't include any.
+\end{enumerate}
+
+\begin{problem}
+[Problem 3]
+Let $\vec{x}$ be a block vector with two vector elements, $\vec{x}=\begin{bmatrix}\vec{a}\\ \vec{b}\end{bmatrix}$, where $\vec{a}\in\mathbb{R}^N$ and $\vec{b}\in\mathbb{R}^M$.
+\begin{enumerate}[label=(\alph*)]
+\item Express $\mathrm{rms}(\vec{x})$ in terms of $\mathrm{rms}(\vec{a})$ and $\mathrm{rms}(\vec{b})$.
+\item Express $\mathrm{avg}(\vec{x})$ in terms of $\mathrm{avg}(\vec{a})$ and $\mathrm{avg}(\vec{b})$.
+\end{enumerate}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Since $\vec{a}$ has $N$ entries and $\vec{b}$ has $M$ entries, the stacked vector $\vec{x}=\begin{bmatrix}\vec{a}\\ \vec{b}\end{bmatrix}$ has $N+M$ entries. By definition,
+\[
+\mathrm{rms}(\vec{x})=\frac{\|\vec{x}\|}{\sqrt{N+M}}=\sqrt{\frac{1}{N+M}\|\vec{x}\|^2}.
+\]
+Since $\|\vec{x}\|^2=\sum_{i=1}^{N+M}x_i^2$, we have
+\[
+\mathrm{rms}(\vec{x})=\sqrt{\frac{1}{N+M}\sum_{i=1}^{N+M}x_i^2}.
+\]
+Since $\vec{x}$ is $\vec{a}$ stacked on $\vec{b}$,
+\[
+\sum_{i=1}^{N+M}x_i^2=\sum_{i=1}^{N}a_i^2+\sum_{j=1}^{M}b_j^2.
+\]
+Again, by definition,
+\[
+\mathrm{rms}(\vec{a})=\sqrt{\frac{1}{N}\sum_{i=1}^{N}a_i^2}
+\qquad\Rightarrow\qquad
+\mathrm{rms}(\vec{a})^2=\frac{1}{N}\sum_{i=1}^{N}a_i^2
+\qquad\Rightarrow\qquad
+\sum_{i=1}^{N}a_i^2=N\,\mathrm{rms}(\vec{a})^2,
+\]
+\[
+\mathrm{rms}(\vec{b})=\sqrt{\frac{1}{M}\sum_{j=1}^{M}b_j^2}
+\qquad\Rightarrow\qquad
+\mathrm{rms}(\vec{b})^2=\frac{1}{M}\sum_{j=1}^{M}b_j^2
+\qquad\Rightarrow\qquad
+\sum_{j=1}^{M}b_j^2=M\,\mathrm{rms}(\vec{b})^2.
+\]
+Substituting these into the expression
+\[
+\sum_{i=1}^{N+M}x_i^2=\sum_{i=1}^{N}a_i^2+\sum_{j=1}^{M}b_j^2
+\]
+gives
+\[
+\sum_{i=1}^{N+M}x_i^2=N\,\mathrm{rms}(\vec{a})^2+M\,\mathrm{rms}(\vec{b})^2.
+\]
+Substituting this into
+\[
+\mathrm{rms}(\vec{x})=\sqrt{\frac{1}{N+M}\sum_{i=1}^{N+M}x_i^2}
+\]
+gives
+\[
+\mathrm{rms}(\vec{x})=\sqrt{\frac{N\,\mathrm{rms}(\vec{a})^2+M\,\mathrm{rms}(\vec{b})^2}{N+M}}.
+\]
+\item Since $\vec{a}$ has $N$ entries and $\vec{b}$ has $M$ entries, the stacked vector $\vec{x}=\begin{bmatrix}\vec{a}\\ \vec{b}\end{bmatrix}$ has $N+M$ entries. By definition,
+\[
+\mathrm{avg}(\vec{x})=\frac{1}{N+M}\vec{\mathbf{1}}\cdot\vec{x}.
+\]
+Since $\vec{x}$ is $\vec{a}$ stacked on $\vec{b}$, we can "decompose" (?):
+\[
+\vec{\mathbf{1}}=\begin{bmatrix}\vec{\mathbf{1}}\\ \vec{\mathbf{1}}\end{bmatrix}.
+\]
+Thus,
+\[
+\vec{\mathbf{1}}\cdot\vec{x}
+=
+\begin{bmatrix}\vec{\mathbf{1}}\\ \vec{\mathbf{1}}\end{bmatrix}\cdot
+\begin{bmatrix}\vec{a}\\ \vec{b}\end{bmatrix}
+=
+\vec{\mathbf{1}}\cdot\vec{a}+\vec{\mathbf{1}}\cdot\vec{b}.
+\]
+Thus,
+\[
+\mathrm{avg}(\vec{x})=\frac{1}{N+M}\left(\vec{\mathbf{1}}\cdot\vec{a}+\vec{\mathbf{1}}\cdot\vec{b}\right).
+\]
+Again, by definition,
+\[
+\mathrm{avg}(\vec{a})=\frac{1}{N}\vec{\mathbf{1}}\cdot\vec{a}
+\qquad\Rightarrow\qquad
+\vec{\mathbf{1}}\cdot\vec{a}=N\,\mathrm{avg}(\vec{a}),
+\]
+\[
+\mathrm{avg}(\vec{b})=\frac{1}{M}\vec{\mathbf{1}}\cdot\vec{b}
+\qquad\Rightarrow\qquad
+\vec{\mathbf{1}}\cdot\vec{b}=M\,\mathrm{avg}(\vec{b}).
+\]
+Substituting these into
+\[
+\mathrm{avg}(\vec{x})=\frac{1}{N+M}\left(\vec{\mathbf{1}}\cdot\vec{a}+\vec{\mathbf{1}}\cdot\vec{b}\right)
+\]
+gives
+\[
+\mathrm{avg}(\vec{x})=\frac{N\,\mathrm{avg}(\vec{a})+M\,\mathrm{avg}(\vec{b})}{N+M}.
+\]
+\end{enumerate}
+
+\begin{problem}
+[Problem 4]
+As mentioned in class, any real-valued function $f:\mathbb{R}^N\to\mathbb{R}$ that satisfies (i) nonnegative homogeneity, (ii) the triangle inequality, and (iii) nonnegative definiteness is called a \emph{vector norm}. The most common vector norm is the Euclidean norm which is sometimes called the two-norm, and is denoted $\|\vec{x}\|_2$. Show the following are also vector norms.
+\begin{multicols}{2}
+\begin{enumerate}[label=(\alph*)]
+\item $\|\vec{x}\|_1=|x_1|+\cdots+|x_N|$
+\item $\|\vec{x}\|_\infty=\max\{|x_1|,\dots,|x_N|\}$
+\end{enumerate}
+\end{multicols}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let us check the three axioms for the one-norm.
+\begin{enumerate}[label=(\roman*)]
+\item For any scalar $c\in\mathbb{R}$,
+\[
+\|c\vec{x}\|_1=\sum_{i=1}^{N}|cx_i|=\sum_{i=1}^{N}|c|\,|x_i|=|c|\sum_{i=1}^{N}|x_i|=|c|\,\|\vec{x}\|_1.
+\]
+This satisfies nonnegative homogeneity.
+\item Using the triangle inequality $|a+b|\le |a|+|b|$,
+\[
+\|\vec{x}+\vec{y}\|_1=\sum_{i=1}^{N}|x_i+y_i|\le \sum_{i=1}^{N}\big(|x_i|+|y_i|\big)=\sum_{i=1}^{N}|x_i|+\sum_{i=1}^{N}|y_i|=\|\vec{x}\|_1+\|\vec{y}\|_1.
+\]
+This satisfies the triangle inequality.
+\item Since each $|x_i|\ge 0$, we have $\|\vec{x}\|_1=\sum_{i=1}^{N}|x_i|\ge 0$. Thus, (I think fairly trivially),
+\[
+\|\vec{x}\|_1=0
+\iff
+\sum_{i=1}^{N}|x_i|=0
+\iff
+|x_i|=0\ \text{for all }i
+\iff
+x_i=0\ \text{for all }i
+\iff
+\vec{x}=\vec{0}.
+\]
+This satisfies nonnegative definiteness.
+\end{enumerate}
+Therefore, the one-norm is a vector norm.
+\item Similarly, let us check the three axioms for the infinity-norm.
+\begin{enumerate}[label=(\roman*)]
+\item For any scalar $c\in\mathbb{R}$,
+\[
+\|c\vec{x}\|_\infty=\max\{|cx_1|,\dots,|cx_N|\}
+=\max\{|c||x_1|,\dots,|c||x_N|\}
+=|c|\max\{|x_1|,\dots,|x_N|\}
+=|c|\,\|\vec{x}\|_\infty.
+\]
+\item For each $i$, we use $|a+b|\le |a|+|b|$ to get
+\[
+|x_i+y_i|\le |x_i|+|y_i|.
+\]
+Also, $\|\vec{x}\|_\infty=\max\{|x_1|,\dots,|x_N|\}$, so $|x_i|\le \|\vec{x}\|_\infty$ for every $i$, and similarly $|y_i|\le \|\vec{y}\|_\infty$ for every $i$. Thus, for every $i$,
+\[
+|x_i+y_i|\le |x_i|+|y_i|\le \|\vec{x}\|_\infty+\|\vec{y}\|_\infty.
+\]
+Since this inequality holds for every $i$, the maximum of the left-hand side over all $i$ is also at most $\|\vec{x}\|_\infty+\|\vec{y}\|_\infty$, so
+\[
+\|\vec{x}+\vec{y}\|_\infty=\max\{|x_1+y_1|,\dots,|x_N+y_N|\}\le \|\vec{x}\|_\infty+\|\vec{y}\|_\infty.
+\]
+\item Since each $|x_i|\ge 0$, it follows that $\|\vec{x}\|_\infty=\max\{|x_1|,\dots,|x_N|\}\ge 0$. Thus,
+\[
+\|\vec{x}\|_\infty=0
+\iff
+\max\{|x_1|,\dots,|x_N|\}=0
+\iff
+|x_i|=0\ \text{for all }i
+\iff
+x_i=0\ \text{for all }i
+\iff
+\vec{x}=\vec{0}.
+\]
+\end{enumerate}
+Therefore, the infinity-norm is a vector norm.\end{enumerate}
+
+\begin{problem}
+[Problem 5]
+Suppose $\vec{x}\in\mathbb{R}^{100}$ with $\mathrm{rms}(\vec{x})=1$.
+\begin{enumerate}[label=(\alph*)]
+\item What is the maximum number of entries of $\vec{x}$ that can satisfy $|x_i|\ge 3$? Call this quantity $k$. Explain why no such vector can have $k+1$ entries with absolute value at least $3$.
+\item Show in this case that Chebyshev's inequality is sharp, i.e. give an example of a specific $\vec{x}\in\mathbb{R}^{100}$ with RMS value $1$ and $k$ entries larger than $3$ in absolute value.
+\end{enumerate}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let $k$ be the number of indices $i\in\{1,\dots,100\}$ such that $|x_i|\ge 3$.
+
+Since $\mathrm{rms}(\vec{x})=1$ and $N=100$, by definition
+\[
+\mathrm{rms}(\vec{x})=\frac{\|\vec{x}\|}{\sqrt{100}}
+\qquad\Rightarrow\qquad
+1=\frac{\|\vec{x}\|}{10}
+\qquad\Rightarrow\qquad
+\|\vec{x}\|=10
+\qquad\Rightarrow\qquad
+\|\vec{x}\|^2=100.
+\]
+
+Since Chebyshev's Inequality states for any $\alpha>0$, the number of indices with $|x_i|\ge \alpha$ is at most
+\[
+\frac{\|\vec{x}\|^2}{\alpha^2},
+\]
+applying this with $\alpha=3$, we get
+\[
+k \le \frac{\|\vec{x}\|^2}{3^2}=\frac{100}{9}.
+\]
+Since $k$ is an integer, the largest possible value is
+\[
+k=\left\lfloor \frac{100}{9}\right\rfloor=11.
+\]
+Finally, no such vector can have $k+1=12$ entries with $|x_i|\ge 3$, because then
+\[
+\|\vec{x}\|^2=\sum_{i=1}^{100}x_i^2 \ge 12\cdot 3^2=108>100.
+\]
+\item Consider the vector $\vec{x}\in\mathbb{R}^{100}$ where
+\[
+x_1=\cdots=x_{11}=3,\qquad x_{12}=1,\qquad x_{13}=\cdots=x_{100}=0.
+\]
+Then, exactly $k=11$ entries satisfy $|x_i|\ge 3$. Also,
+\[
+\|\vec{x}\|^2=\sum_{i=1}^{100}x_i^2=11\cdot 3^2+1^2=99+1=100,
+\]
+so $\|\vec{x}\|=10$, and thus,
+\[
+\mathrm{rms}(\vec{x})=\frac{\|\vec{x}\|}{\sqrt{100}}=\frac{10}{10}=1.
+\]
+Therefore, Chebyshev's Inequality is sharp.
+\end{enumerate}
+
+\begin{problem}
+[Problem 6]
+Let $\vec{x}\in\mathbb{R}^N$ and $\alpha,\beta\in\mathbb{R}$ be scalars. Show that
+\begin{enumerate}[label=(\alph*)]
+\item $\mathrm{avg}(\alpha\vec{x}+\beta\vec{\mathbf{1}})=\alpha\,\mathrm{avg}(\vec{x})+\beta$, and
+\item $\mathrm{std}(\alpha\vec{x}+\beta\vec{\mathbf{1}})=|\alpha|\,\mathrm{std}(\vec{x})$.
+\end{enumerate}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item By definition,
+\[
+\mathrm{avg}(\vec{x})=\frac{1}{N}\vec{\mathbf{1}}\cdot\vec{x}.
+\]
+Thus,
+\[
+\mathrm{avg}(\alpha\vec{x}+\beta\vec{\mathbf{1}})
+=\frac{1}{N}\vec{\mathbf{1}}\cdot(\alpha\vec{x}+\beta\vec{\mathbf{1}})
+=\frac{1}{N}\big(\alpha(\vec{\mathbf{1}}\cdot\vec{x})+\beta(\vec{\mathbf{1}}\cdot\vec{\mathbf{1}})\big).
+\]
+Since $\vec{\mathbf{1}}=\begin{bmatrix}1\\ \vdots\\ 1\end{bmatrix}\in\mathbb{R}^N$,
+\[
+\vec{\mathbf{1}}\cdot\vec{\mathbf{1}}=1^2+\cdots+1^2=N,
+\]
+it follows that
+\begin{align*}
+\mathrm{avg}(\alpha\vec{x}+\beta\vec{\mathbf{1}})
+&=\frac{1}{N}\big(\alpha(\vec{\mathbf{1}}\cdot\vec{x})+\beta(\vec{\mathbf{1}}\cdot\vec{\mathbf{1}})\big)\\
+&=\frac{1}{N}\big(\alpha(\vec{\mathbf{1}}\cdot\vec{x})+\beta N\big)\\
+&=\alpha\frac{1}{N}(\vec{\mathbf{1}}\cdot\vec{x})+\beta\\
+&=\alpha\,\mathrm{avg}(\vec{x})+\beta.
+\end{align*}
+\item By definition,
+\[
+\mathrm{std}(\vec{x})=\mathrm{rms}\big(\vec{x}-\mathrm{avg}(\vec{x})\vec{\mathbf{1}}\big)
+=\frac{1}{\sqrt{N}}\big\|\vec{x}-\mathrm{avg}(\vec{x})\vec{\mathbf{1}}\big\|.
+\]
+Thus,
+\[
+\mathrm{std}(\alpha\vec{x}+\beta\vec{\mathbf{1}})
+=\frac{1}{\sqrt{N}}\left\|(\alpha\vec{x}+\beta\vec{\mathbf{1}})-\mathrm{avg}(\alpha\vec{x}+\beta\vec{\mathbf{1}})\vec{\mathbf{1}}\right\|.
+\]
+From part (a),
+\[
+\mathrm{avg}(\alpha\vec{x}+\beta\vec{\mathbf{1}})=\alpha\,\mathrm{avg}(\vec{x})+\beta,
+\]
+so
+\begin{align*}
+(\alpha\vec{x}+\beta\vec{\mathbf{1}})-\mathrm{avg}(\alpha\vec{x}+\beta\vec{\mathbf{1}})\vec{\mathbf{1}}
+&=(\alpha\vec{x}+\beta\vec{\mathbf{1}})-(\alpha\,\mathrm{avg}(\vec{x})+\beta)\vec{\mathbf{1}}\\
+&=(\alpha\vec{x}+\beta\vec{\mathbf{1}})-\big(\alpha\,\mathrm{avg}(\vec{x})\vec{\mathbf{1}}+\beta\vec{\mathbf{1}}\big)\\
+&=\alpha\vec{x}+\beta\vec{\mathbf{1}}-\alpha\,\mathrm{avg}(\vec{x})\vec{\mathbf{1}}-\beta\vec{\mathbf{1}}\\
+&=\alpha\big(\vec{x}-\mathrm{avg}(\vec{x})\vec{\mathbf{1}}\big).
+\end{align*}
+Therefore,
+\begin{align*}
+\mathrm{std}(\alpha\vec{x}+\beta\vec{\mathbf{1}})
+&=\frac{1}{\sqrt{N}}\left\|\alpha\big(\vec{x}-\mathrm{avg}(\vec{x})\vec{\mathbf{1}}\big)\right\|\\
+&=\frac{1}{\sqrt{N}}|\alpha|\,\big\|\vec{x}-\mathrm{avg}(\vec{x})\vec{\mathbf{1}}\big\|\\
+&=|\alpha|\,\mathrm{std}(\vec{x}).
+\end{align*}
+\end{enumerate}
+\end{document}
