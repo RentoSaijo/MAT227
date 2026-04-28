@@ -1,0 +1,129 @@
+ \documentclass[12pt]{article}
+\usepackage{amsmath, amsfonts, amsthm, mathtools}
+\usepackage{multirow, multicol, graphicx, color, enumitem, scrextend, setspace}
+\usepackage[dvipsnames]{xcolor}
+\pagestyle{empty}
+
+
+\setlength{\topmargin}{-.5in}
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{.125in}
+\setlength{\textwidth}{6.25in}
+
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\bfa}{\mathbf{a}}
+\newcommand{\bfb}{\mathbf{b}}
+\newcommand{\bfu}{\mathbf{u}}
+\newcommand{\bfv}{\mathbf{v}}
+\newcommand{\bfw}{\mathbf{w}}
+\newcommand{\bfp}{\mathbf{p}}
+\newcommand{\bfq}{\mathbf{q}}
+\newcommand{\bfx}{\mathbf{x}}
+\newcommand{\bfy}{\mathbf{y}}
+
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbC}{\mathbb{C}}
+\newcommand{\bbQ}{\mathbb{Q}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\bbN}{\mathbb{N}}
+
+\DeclareMathOperator{\rms}{rms}
+\DeclareMathOperator{\avg}{avg}
+\DeclareMathOperator{\std}{std}
+
+\onehalfspacing
+
+\begin{document}
+
+
+\begin{center}
+\textbf{MAT 227 - Applied Linear Algebra}\\
+\medskip
+\textbf{Problem Set 3\\ Vector Spaces, Inner Products, and \\Positive Definite Matrices}\\
+\medskip
+\textbf{Due: {\color{red} Tuesday 04/28/26} in class}
+\end{center}
+
+
+
+\begin{center}
+\underline{\hspace{6.5 in}}
+\end{center}
+
+
+\noindent\textbf{Guidelines and reminders:}
+	\begin{itemize}[nosep]
+	\item You are allowed to use resources found online and work with each other. However, your write-ups should be your own. Make sure you are only using terminology and results we have developed so far. 
+	
+	\medskip
+	
+	\item You can handwrite your solutions on paper and turn in a physical copy, or you can write your solutions on a tablet and upload a pdf to Moodle. 
+		
+	\medskip
+			
+	\item Give full solutions. Make sure to explain any assumptions you have and how you get from one step to the next. Generally, too much explanations is better than too little. 
+	\end{itemize} 
+
+\begin{center}
+\underline{\hspace{6.5 in}}
+\end{center}
+
+\bigskip
+
+\begin{enumerate}
+	\item Let $t_1,t_2,\dots,t_n$ be a set of distinct sample points in $\mathbb{R}$. Given $\mathbb{R}$-valued functions $f_1(x), f_2(x),\dots,f_k(x)$, we define their sample vectors to be
+		\[
+			\vec{f}_1=\begin{bmatrix*}[c]f_1(x_1)\\f_1(x_2)\\ \vdots\\f_1(x_n)\end{bmatrix*},
+			\vec{f}_2=\begin{bmatrix*}[c]f_2(x_1)\\f_2(x_2)\\ \vdots\\f_2(x_n)\end{bmatrix*}, \dots,
+			\vec{f}_k=\begin{bmatrix*}[c]f_k(x_1)\\f_k(x_2)\\ \vdots\\f_k(x_n)\end{bmatrix*}\in\mathbb{R}^n.
+		\]
+		\begin{enumerate}
+			\item Show that the functions $f_1(x),f_2(x),\dots,f_k(x)$ are linearly independent if the sample vectors $\vec{f}_1,\vec{f}_2,\dots,\vec{f}_k$ are linearly independent. 
+			\item Use (a) to show that the functions $1$, $\cos x$, $\sin x$, $\cos 2x$, and $\sin 2x$ are linearly independent. \\ Hint: You are going to need at least five sample points. 
+		\end{enumerate}
+
+	\bigskip
+
+	\item 
+		\begin{enumerate}
+			\item Show that every diagonal entry of a positive definite matrix must be positive. 
+			\item Write down a symmetric matrix with all positive diagonal entries that is not positive definite. 
+			\item Find a nonzero matrix with one or more zero diagonal entries that is positive semi-definite. 
+		\end{enumerate}
+		
+	\bigskip
+	
+	\item Write the following quadratic forms in matrix notation and determine if they are positive definite. 
+		\begin{enumerate}
+			\item $3x_1^2-x_2^2+5x_3^2+4x_1x_2-7x_1x_3+9x_2x_3$
+			\item $x_1^2+4x_1x_2-2x_1x_3+5x_2^2-2x_2x_4+6x_3^2-x_3x_4+4x_4^2$
+		\end{enumerate}
+		
+	\bigskip
+	
+	\item 
+		\begin{enumerate}
+			\item Find the Gram matrix $K$ for the monomials $1,x,x^2,x^3$ using the L$^2$ inner product on $[-1,1]$. Is $K$ positive definite?
+			\item Find the Gram matrix for the same monomials but using the weighted inner product $\langle f,g\rangle=\int_0^1f(x)g(x)(1+x)\,dx$. Is this matrix positive defiinite?		
+		\end{enumerate}
+		
+	\bigskip
+	
+	\item 
+		\begin{enumerate}
+			\item The physicists' \textbf{Hermite polynomials} are orthogonal with respect to the weighted inner product
+				\[
+					\int_{-\infty}^\infty f(t)g(t)e^{-t^2}\,dt.
+				\]
+				Find the first five monic Hermite polynomials, i.e. apply the Gram-Schmidt process to $1,t, t^2,t^3,t^4$ with respect to this inner product. Note that $\int_{-\infty}^\infty e^{-t^2}\,dt=\sqrt{\pi}.$
+			\item The probabilists prefer to use the inner product
+				\[
+					\int_{-\infty}^\infty f(t)g(t)e^{-t^2/2}\,dt.
+				\]
+				Find the first five of their monic Hermite polynomials. 
+				\item Give a change of variable that transforms the physicists' version to the probabilists' version
+		\end{enumerate}
+\end{enumerate}
+
+\end{document}

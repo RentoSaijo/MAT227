@@ -811,16 +811,34 @@ From there the row operations are
 \[
 R_3\leftarrow R_3-R_1,\qquad R_3\leftarrow R_3+R_2.
 \]
-After the first one,
+The corresponding elementary matrices are
 \[
+E_1=
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+-1 & 0 & 1
+\end{pmatrix},
+\qquad
+E_2=
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 1 & 1
+\end{pmatrix}.
+\]
+Then,
+\[
+E_1P_1A=
 \begin{pmatrix}
 2 & -1 & 1\\
 0 & 1 & 3\\
 0 & -1 & -1
 \end{pmatrix},
 \]
-and after the second one,
+and
 \[
+E_2E_1P_1A=
 \begin{pmatrix}
 2 & -1 & 1\\
 0 & 1 & 3\\
@@ -828,7 +846,23 @@ and after the second one,
 \end{pmatrix}
 =U_1.
 \]
-So this really is an elimination procedure that turns $P_1A$ into the displayed upper-triangular matrix. The inverse elementary matrices then multiply together to give
+The inverse elementary matrices are
+\[
+E_1^{-1}=
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+1 & 0 & 1
+\end{pmatrix},
+\qquad
+E_2^{-1}=
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & -1 & 1
+\end{pmatrix},
+\]
+and they multiply together to give
 \[
 L_1=
 \begin{pmatrix}
@@ -851,16 +885,34 @@ The row operations are
 \[
 R_2\leftarrow R_2-R_1,\qquad R_3\leftarrow R_3-R_2.
 \]
-After the first one,
+The corresponding elementary matrices are
 \[
+E_1=
+\begin{pmatrix}
+1 & 0 & 0\\
+-1 & 1 & 0\\
+0 & 0 & 1
+\end{pmatrix},
+\qquad
+E_2=
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & -1 & 1
+\end{pmatrix}.
+\]
+Then,
+\[
+E_1P_2A=
 \begin{pmatrix}
 2 & -2 & 0\\
 0 & 1 & 1\\
 0 & 1 & 3
 \end{pmatrix},
 \]
-and after the second one,
+and
 \[
+E_2E_1P_2A=
 \begin{pmatrix}
 2 & -2 & 0\\
 0 & 1 & 1\\
@@ -868,7 +920,23 @@ and after the second one,
 \end{pmatrix}
 =U_2.
 \]
-Again, this is exactly the displayed upper-triangular matrix, and the inverse elementary matrices multiply to
+The inverse elementary matrices are
+\[
+E_1^{-1}=
+\begin{pmatrix}
+1 & 0 & 0\\
+1 & 1 & 0\\
+0 & 0 & 1
+\end{pmatrix},
+\qquad
+E_2^{-1}=
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 1 & 1
+\end{pmatrix},
+\]
+and they multiply to
 \[
 L_2=
 \begin{pmatrix}
@@ -891,16 +959,34 @@ The row operations are
 \[
 R_3\leftarrow R_3-R_1,\qquad R_3\leftarrow R_3-R_2.
 \]
-After the first one,
+The corresponding elementary matrices are
 \[
+E_1=
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+-1 & 0 & 1
+\end{pmatrix},
+\qquad
+E_2=
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & -1 & 1
+\end{pmatrix}.
+\]
+Then,
+\[
+E_1P_3A=
 \begin{pmatrix}
 2 & -2 & 0\\
 0 & 1 & 3\\
 0 & 1 & 1
 \end{pmatrix},
 \]
-and after the second one,
+and
 \[
+E_2E_1P_3A=
 \begin{pmatrix}
 2 & -2 & 0\\
 0 & 1 & 3\\
@@ -908,7 +994,23 @@ and after the second one,
 \end{pmatrix}
 =U_3.
 \]
-So once more the displayed $U$ is exactly what the row operations produce, and the inverse elementary matrices multiply to
+The inverse elementary matrices are
+\[
+E_1^{-1}=
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+1 & 0 & 1
+\end{pmatrix},
+\qquad
+E_2^{-1}=
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 1 & 1
+\end{pmatrix},
+\]
+and they multiply to
 \[
 L_3=
 \begin{pmatrix}
@@ -934,7 +1036,7 @@ Solving
 0 & 1 & 0\\
 1 & -1 & 1
 \end{pmatrix}
-\vec{c}^{(1)}
+\vec{c}
 =
 \begin{pmatrix}
 -1\\
@@ -944,7 +1046,7 @@ Solving
 \]
 gives
 \[
-\vec{c}^{(1)}=
+\vec{c}=
 \begin{pmatrix}
 -1\\
 -5\\
@@ -986,7 +1088,7 @@ Solving
 1 & 1 & 0\\
 0 & 1 & 1
 \end{pmatrix}
-\vec{c}^{(2)}
+\vec{c}
 =
 \begin{pmatrix}
 0\\
@@ -996,7 +1098,7 @@ Solving
 \]
 gives
 \[
-\vec{c}^{(2)}=
+\vec{c}=
 \begin{pmatrix}
 0\\
 -1\\
@@ -1038,7 +1140,7 @@ Solving
 0 & 1 & 0\\
 1 & 1 & 1
 \end{pmatrix}
-\vec{c}^{(3)}
+\vec{c}
 =
 \begin{pmatrix}
 0\\
@@ -1048,7 +1150,7 @@ Solving
 \]
 gives
 \[
-\vec{c}^{(3)}=
+\vec{c}=
 \begin{pmatrix}
 0\\
 -5\\
@@ -1099,7 +1201,7 @@ Although the matrix
 \[
 A=
 \begin{pmatrix}
-1 & 2 & 2\\
+1 & 2 & 1\\
 2 & 4 & -1\\
 1 & -1 & 3
 \end{pmatrix}
@@ -1107,12 +1209,101 @@ A=
 is symmetric, show that it cannot be factored as $A=LDL^T$.
 \end{problem}
 
-For now, the general fact we want to record is this: any matrix of the form $LDL^T$ must be symmetric, because $D$ is diagonal and therefore $D^T=D$. So
-\begin{equation}
-(LDL^T)^T=(L^T)^TD^TL^T=LDL^T.
-\label{eq:ldlt-symmetric}
-\end{equation}
-Equation \eqref{eq:ldlt-symmetric} says every $LDL^T$ matrix equals its own transpose, so symmetry is a necessary condition for an $LDL^T$ factorization.
+Let
+\[
+L=
+\begin{pmatrix}
+1 & 0 & 0\\
+\ell_{21} & 1 & 0\\
+\ell_{31} & \ell_{32} & 1
+\end{pmatrix},
+\qquad
+D=
+\begin{pmatrix}
+d_1 & 0 & 0\\
+0 & d_2 & 0\\
+0 & 0 & d_3
+\end{pmatrix},
+\qquad
+L^T=
+\begin{pmatrix}
+1 & \ell_{21} & \ell_{31}\\
+0 & 1 & \ell_{32}\\
+0 & 0 & 1
+\end{pmatrix}.
+\]
+If $A=LDL^T$, then we can multiply it out directly. First,
+\[
+LD=
+\begin{pmatrix}
+d_1 & 0 & 0\\
+\ell_{21}d_1 & d_2 & 0\\
+\ell_{31}d_1 & \ell_{32}d_2 & d_3
+\end{pmatrix}.
+\]
+Then
+\[
+LDL^T=
+\begin{pmatrix}
+d_1 & 0 & 0\\
+\ell_{21}d_1 & d_2 & 0\\
+\ell_{31}d_1 & \ell_{32}d_2 & d_3
+\end{pmatrix}
+\begin{pmatrix}
+1 & \ell_{21} & \ell_{31}\\
+0 & 1 & \ell_{32}\\
+0 & 0 & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+d_1 & \ell_{21}d_1 & \ell_{31}d_1\\
+\ell_{21}d_1 & \ell_{21}^2d_1+d_2 & \ell_{31}\ell_{21}d_1+\ell_{32}d_2\\
+\ell_{31}d_1 & \ell_{31}\ell_{21}d_1+\ell_{32}d_2 & \ell_{31}^2d_1+\ell_{32}^2d_2+d_3
+\end{pmatrix}.
+\]
+So comparing entries gives
+\[
+a_{11}=d_1,\qquad a_{21}=\ell_{21}d_1,\qquad a_{31}=\ell_{31}d_1,
+\]
+\[
+a_{22}=\ell_{21}^2d_1+d_2,
+\qquad
+a_{32}=\ell_{31}\ell_{21}d_1+\ell_{32}d_2.
+\]
+Now, we can match these with
+\[
+A=
+\begin{pmatrix}
+1 & 2 & 1\\
+2 & 4 & -1\\
+1 & -1 & 3
+\end{pmatrix}.
+\]
+From the $(1,1)$ entry, we get
+\[
+d_1=1.
+\]
+From the $(2,1)$ and $(3,1)$ entries, we get
+\[
+\ell_{21}d_1=2,\qquad \ell_{31}d_1=1,
+\]
+so
+\[
+\ell_{21}=2,\qquad \ell_{31}=1.
+\]
+Now, use the $(2,2)$ entry:
+\[
+\ell_{21}^2d_1+d_2=4
+\qquad \Longrightarrow \qquad
+2^2(1)+d_2=4
+\qquad \Longrightarrow \qquad
+d_2=0.
+\]
+But then the $(3,2)$ entry would have to be
+\[
+a_{32}=\ell_{31}\ell_{21}d_1+\ell_{32}d_2=(1)(2)(1)+\ell_{32}(0)=2,
+\]
+while the actual $(3,2)$ entry of $A$ is $-1$. By contradiction, this matrix cannot be factored as $A=LDL^T$.
 
 \newpage
 
@@ -1241,7 +1432,7 @@ R_1\leftarrow \frac{1}{2}R_1,
 \right].
 \]
 So the exact solution is
-\begin{equation}
+\[
 \boxed{
 \begin{pmatrix}
 x\\
@@ -1254,8 +1445,7 @@ z
 \frac{1}{7}\\[0.3em]
 -\frac{1}{7}
 \end{pmatrix}}.
-\label{eq:exact-solution}
-\end{equation}
+\]
 
 \item For the rounded computation, we will use $4$ significant digits at each arithmetic step. Here we do \emph{not} pivot, so we simply start with the first row as the first pivot row. The augmented matrix is
 \[
@@ -1287,7 +1477,7 @@ This is the part where the trouble starts. In exact arithmetic that $0.0002$ wou
 R_3\leftarrow R_3-(4.500\times 10^4)R_2
 \]
 and this gives
-\begin{equation}
+\[
 \left[
 \begin{array}{ccc|c}
 1.000 & -5.000 & -1.000 & 1.000\\
@@ -1295,10 +1485,9 @@ and this gives
 0 & 0 & -5.251\times 10^4 & 7.504\times 10^3
 \end{array}
 \right].
-\label{eq:no-pivot}
-\end{equation}
+\]
 
-Back substitution from \eqref{eq:no-pivot} gives
+Back substitution from this upper-triangular system gives
 \[
 z=\frac{7.504\times 10^3}{-5.251\times 10^4}=-0.1429,
 \]
@@ -1369,7 +1558,7 @@ In the second column, the larger pivot is now $-4.500$, so we swap rows $2$ and 
 R_3\leftarrow R_3-0.1667R_2
 \]
 gives
-\begin{equation}
+\[
 \left[
 \begin{array}{ccc|c}
 2.000 & -1.000 & 0 & 3.000\\
@@ -1377,10 +1566,9 @@ gives
 0 & 0 & 1.167 & -0.1668
 \end{array}
 \right].
-\label{eq:with-pivot}
-\end{equation}
+\]
 
-Back substitution from \eqref{eq:with-pivot} gives
+Back substitution from this upper-triangular system gives
 \[
 z=\frac{-0.1668}{1.167}=-0.1429,
 \]
@@ -1411,7 +1599,7 @@ z
 \end{pmatrix}}.
 \]
 
-\item The exact answer from \eqref{eq:exact-solution} is
+\item The exact answer from part (a) is
 \[
 \begin{pmatrix}
 1.571428\ldots\\
@@ -1419,7 +1607,7 @@ z
 -0.142857\ldots
 \end{pmatrix}.
 \]
-So the partial-pivoting answer from \eqref{eq:with-pivot} is very close, while the no-pivot answer from \eqref{eq:no-pivot} is pretty bad in the first two entries. The reason is the tiny pivot $0.0002$ that showed up in part (b). Dividing by such a small number created the enormous factor $4.500\times 10^4$, and that amplified the rounding errors. In part (c), partial pivoting avoids that by moving the largest available entry in the pivot column into the pivot position before eliminating, so the rounded arithmetic stays much more stable.
+So the partial-pivoting answer from part (c) is very close, while the no-pivot answer from part (b) is pretty bad in the first two entries. The reason is the tiny pivot $0.0002$ that showed up in part (b). Dividing by such a small number created the enormous factor $4.500\times 10^4$, and that amplified the rounding errors. In part (c), partial pivoting avoids that by moving the largest available entry in the pivot column into the pivot position before eliminating, so the rounded arithmetic stays much more stable.
 \end{enumerate}
 
 \end{document}

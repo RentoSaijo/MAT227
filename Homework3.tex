@@ -1,0 +1,1036 @@
+\documentclass[10pt]{extarticle}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{tcolorbox}
+
+\allowdisplaybreaks
+\setlength{\parindent}{0pt}
+
+\title{\centering\Large\textsc{Applications of Linear Algebra: Problem Set 3}}
+\author{\large \textsc{Rento Saijo}}
+\date{April 28, 2026}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\textsc{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand{\headrulewidth}{0pt}
+
+\newtcolorbox{problem}[1][]{
+    colframe=darkgray!100,
+    arc=0.1mm,
+    boxrule=2pt,
+    boxsep=1mm,
+    title={\textsc{#1}}
+}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\vspace{-1em}\noindent\rule{\linewidth}{0.6pt}\vspace{0.5em}
+
+\begin{problem}[Problem 1]
+Let $x_1,x_2,\dots,x_n$ be a set of distinct sample points in $\mathbb{R}$. Given $\mathbb{R}$-valued functions $f_1(x), f_2(x),\dots,f_k(x)$, we define their sample vectors to be
+\[
+\vec{f}_1=\begin{pmatrix}f_1(x_1)\\f_1(x_2)\\ \vdots\\f_1(x_n)\end{pmatrix},
+\quad
+\vec{f}_2=\begin{pmatrix}f_2(x_1)\\f_2(x_2)\\ \vdots\\f_2(x_n)\end{pmatrix},
+\quad \dots,\quad
+\vec{f}_k=\begin{pmatrix}f_k(x_1)\\f_k(x_2)\\ \vdots\\f_k(x_n)\end{pmatrix}\in\mathbb{R}^n.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Show that the functions $f_1(x),f_2(x),\dots,f_k(x)$ are linearly independent if the sample vectors $\vec{f}_1,\vec{f}_2,\dots,\vec{f}_k$ are linearly independent.
+\item Use (a) to show that the functions $1$, $\cos x$, $\sin x$, $\cos 2x$, and $\sin 2x$ are linearly independent. Hint: You are going to need at least five sample points.
+\end{enumerate}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item We want to show that linear independence of the sample vectors forces linear independence of the functions themselves. So suppose
+\[
+c_1f_1(x)+c_2f_2(x)+\cdots+c_kf_k(x)=0
+\qquad \text{for every } x.
+\]
+If we now plug in the sample points $x_1,x_2,\dots,x_n$, we get
+\[
+c_1f_1(x_i)+c_2f_2(x_i)+\cdots+c_kf_k(x_i)=0
+\qquad \text{for } i=1,2,\dots,n.
+\]
+Writing those equations together in vector form gives
+\[
+c_1\vec{f}_1+c_2\vec{f}_2+\cdots+c_k\vec{f}_k=\vec{0}.
+\]
+But the sample vectors are assumed to be linearly independent, so the only way this can happen is if
+\[
+c_1=c_2=\cdots=c_k=0.
+\]
+Therefore, the functions $f_1,f_2,\dots,f_k$ are linearly independent.
+
+\item We just need to find five sample points whose sample vectors are linearly independent. A convenient choice is
+\[
+x_1=0,\qquad x_2=\frac{\pi}{4},\qquad x_3=\frac{\pi}{2},\qquad x_4=\frac{3\pi}{4},\qquad x_5=\pi.
+\]
+At these points, the sample vectors become
+\[
+\vec{1}=
+\begin{pmatrix}
+1\\1\\1\\1\\1
+\end{pmatrix},
+\qquad
+\vec{\cos x}=
+\begin{pmatrix}
+1\\[0.2em] \frac{\sqrt{2}}{2}\\[0.2em] 0\\[0.2em] -\frac{\sqrt{2}}{2}\\[0.2em] -1
+\end{pmatrix},
+\qquad
+\vec{\sin x}=
+\begin{pmatrix}
+0\\[0.2em] \frac{\sqrt{2}}{2}\\[0.2em] 1\\[0.2em] \frac{\sqrt{2}}{2}\\[0.2em] 0
+\end{pmatrix},
+\]
+\[
+\vec{\cos 2x}=
+\begin{pmatrix}
+1\\0\\-1\\0\\1
+\end{pmatrix},
+\qquad
+\vec{\sin 2x}=
+\begin{pmatrix}
+0\\1\\0\\-1\\0
+\end{pmatrix}.
+\]
+Now, suppose a linear combination of these vectors is zero:
+\[
+a\vec{1}+b\vec{\cos x}+c\vec{\sin x}+d\vec{\cos 2x}+e\vec{\sin 2x}=\vec{0}.
+\]
+If we write this as a linear system in the unknowns $a,b,c,d,e$, we get
+\[
+\begin{pmatrix}
+1 & 1 & 0 & 1 & 0\\
+1 & \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} & 0 & 1\\[0.4em]
+1 & 0 & 1 & -1 & 0\\
+1 & -\frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} & 0 & -1\\[0.4em]
+1 & -1 & 0 & 1 & 0
+\end{pmatrix}
+\begin{pmatrix}
+a\\b\\c\\d\\e
+\end{pmatrix}
+=
+\begin{pmatrix}
+0\\0\\0\\0\\0
+\end{pmatrix}.
+\]
+So let us row reduce the coefficient matrix. Starting from the augmented matrix,
+\[
+\left[
+\begin{array}{ccccc|c}
+1 & 1 & 0 & 1 & 0 & 0\\
+1 & \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} & 0 & 1 & 0\\[0.4em]
+1 & 0 & 1 & -1 & 0 & 0\\
+1 & -\frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} & 0 & -1 & 0\\[0.4em]
+1 & -1 & 0 & 1 & 0 & 0
+\end{array}
+\right],
+\]
+use
+\[
+R_2\leftarrow R_2-R_1,\quad
+R_3\leftarrow R_3-R_1,\quad
+R_4\leftarrow R_4-R_1,\quad
+R_5\leftarrow R_5-R_1.
+\]
+This gives
+\[
+\left[
+\begin{array}{ccccc|c}
+1 & 1 & 0 & 1 & 0 & 0\\
+0 & \frac{\sqrt{2}}{2}-1 & \frac{\sqrt{2}}{2} & -1 & 1 & 0\\[0.4em]
+0 & -1 & 1 & -2 & 0 & 0\\
+0 & -\frac{\sqrt{2}}{2}-1 & \frac{\sqrt{2}}{2} & -1 & -1 & 0\\[0.4em]
+0 & -2 & 0 & 0 & 0 & 0
+\end{array}
+\right].
+\]
+Now, scale the last row and move it up:
+\[
+R_5\leftarrow -\frac{1}{2}R_5,\qquad R_2\leftrightarrow R_5.
+\]
+Then
+\[
+\left[
+\begin{array}{ccccc|c}
+1 & 1 & 0 & 1 & 0 & 0\\
+0 & 1 & 0 & 0 & 0 & 0\\
+0 & -1 & 1 & -2 & 0 & 0\\
+0 & -\frac{\sqrt{2}}{2}-1 & \frac{\sqrt{2}}{2} & -1 & -1 & 0\\[0.4em]
+0 & \frac{\sqrt{2}}{2}-1 & \frac{\sqrt{2}}{2} & -1 & 1 & 0
+\end{array}
+\right].
+\]
+Use the pivot in column $2$:
+\[
+R_1\leftarrow R_1-R_2,\quad
+R_3\leftarrow R_3+R_2,\quad
+R_4\leftarrow R_4+\left(\frac{\sqrt{2}}{2}+1\right)R_2,\quad
+R_5\leftarrow R_5-\left(\frac{\sqrt{2}}{2}-1\right)R_2.
+\]
+This gives
+\[
+\left[
+\begin{array}{ccccc|c}
+1 & 0 & 0 & 1 & 0 & 0\\
+0 & 1 & 0 & 0 & 0 & 0\\
+0 & 0 & 1 & -2 & 0 & 0\\
+0 & 0 & \frac{\sqrt{2}}{2} & -1 & -1 & 0\\[0.4em]
+0 & 0 & \frac{\sqrt{2}}{2} & -1 & 1 & 0
+\end{array}
+\right].
+\]
+Now, eliminate the third column from the last two rows:
+\[
+R_4\leftarrow R_4-\frac{\sqrt{2}}{2}R_3,\qquad
+R_5\leftarrow R_5-\frac{\sqrt{2}}{2}R_3.
+\]
+So we get
+\[
+\left[
+\begin{array}{ccccc|c}
+1 & 0 & 0 & 1 & 0 & 0\\
+0 & 1 & 0 & 0 & 0 & 0\\
+0 & 0 & 1 & -2 & 0 & 0\\
+0 & 0 & 0 & -1+\sqrt{2} & -1 & 0\\
+0 & 0 & 0 & -1+\sqrt{2} & 1 & 0
+\end{array}
+\right].
+\]
+Finally, subtract the fourth row from the fifth:
+\[
+R_5\leftarrow R_5-R_4,
+\]
+which gives
+\[
+\left[
+\begin{array}{ccccc|c}
+1 & 0 & 0 & 1 & 0 & 0\\
+0 & 1 & 0 & 0 & 0 & 0\\
+0 & 0 & 1 & -2 & 0 & 0\\
+0 & 0 & 0 & -1+\sqrt{2} & -1 & 0\\
+0 & 0 & 0 & 0 & 2 & 0
+\end{array}
+\right].
+\]
+Starting from the last row,
+\[
+e=0.
+\]
+The fourth row gives
+\[
+(-1+\sqrt{2})d=0.
+\]
+Since $-1+\sqrt{2}\neq 0$, we get
+\[
+d=0.
+\]
+The third row gives
+\[
+c=0,
+\]
+the second row gives
+\[
+b=0,
+\]
+and the first row gives
+\[
+a=0.
+\]
+So the only solution is the trivial one, which means the five sample vectors are linearly independent. By part (a), that means the functions
+\[
+1,\qquad \cos x,\qquad \sin x,\qquad \cos 2x,\qquad \sin 2x
+\]
+are linearly independent.
+\end{enumerate}
+
+\newpage
+
+\begin{problem}[Problem 2]
+\begin{enumerate}[label=(\alph*)]
+\item Show that every diagonal entry of a positive definite matrix must be positive.
+\item Write down a symmetric matrix with all positive diagonal entries that is not positive definite.
+\item Find a nonzero matrix with one or more zero diagonal entries that is positive semi-definite.
+\end{enumerate}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let $A=(a_{ij})$ be positive definite. By definition, this means
+\[
+\vec{x}^{\,T}A\vec{x}>0
+\qquad \text{for every nonzero } \vec{x}.
+\]
+To isolate a diagonal entry, take $\vec{x}$ to be the $i$th standard basis vector $\vec{e}_i$. Then
+\[
+\vec{e}_i^{\,T}A\vec{e}_i=a_{ii}.
+\]
+Since $\vec{e}_i\neq \vec{0}$ and $A$ is positive definite, we must have
+\[
+a_{ii}>0.
+\]
+Therefore, every diagonal entry of a positive definite matrix is positive.
+
+\item A simple example (I'm not sure if this was the same one from class) is
+\[
+A=
+\begin{pmatrix}
+1 & 2\\
+2 & 1
+\end{pmatrix}.
+\]
+This matrix is symmetric, and its diagonal entries are both positive. But if we test it on
+\[
+\vec{x}=
+\begin{pmatrix}
+1\\
+-1
+\end{pmatrix},
+\]
+then
+\[
+\vec{x}^{\,T}A\vec{x}
+=
+\begin{pmatrix}
+1 & -1
+\end{pmatrix}
+\begin{pmatrix}
+1 & 2\\
+2 & 1
+\end{pmatrix}
+\begin{pmatrix}
+1\\
+-1
+\end{pmatrix}
+=-2.
+\]
+Since this is negative, $A$ is not positive definite.
+
+\item One easy example (again, I'm not sure if this was the same one from class) is
+\[
+B=
+\begin{pmatrix}
+0 & 0\\
+0 & 1
+\end{pmatrix}.
+\]
+This matrix is nonzero, and it has a zero on the diagonal. Now take any vector
+\[
+\vec{x}=
+\begin{pmatrix}
+x_1\\
+x_2
+\end{pmatrix}.
+\]
+Then
+\[
+\vec{x}^{\,T}B\vec{x}
+=
+\begin{pmatrix}
+x_1 & x_2
+\end{pmatrix}
+\begin{pmatrix}
+0 & 0\\
+0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+x_1\\
+x_2
+\end{pmatrix}
+=x_2^2\ge 0
+\]
+because any number squared must be nonnegative. Therefore, $B$ is positive semi-definite.
+\end{enumerate}
+
+\newpage
+
+\begin{problem}[Problem 3]
+Write the following quadratic forms in matrix notation and determine if they are positive definite.
+\begin{enumerate}[label=(\alph*)]
+\item $3x_1^2-x_2^2+5x_3^2+4x_1x_2-7x_1x_3+9x_2x_3$
+\item $x_1^2+4x_1x_2-2x_1x_3+5x_2^2-2x_2x_4+6x_3^2-x_3x_4+4x_4^2$
+\end{enumerate}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+\vec{x}=
+\begin{pmatrix}
+x_1\\
+x_2\\
+x_3
+\end{pmatrix}.
+\]
+Then, the quadratic form can be written as
+\[
+\vec{x}^{\,T}
+\begin{pmatrix}
+3 & 2 & -\frac{7}{2}\\[0.3em]
+2 & -1 & \frac{9}{2}\\[0.3em]
+-\frac{7}{2} & \frac{9}{2} & 5
+\end{pmatrix}
+\vec{x}.
+\]
+The diagonal entries come from the square terms, and the off-diagonal entries are half of the mixed-term coefficients, which is why the $4x_1x_2$ becomes a $2$ in the matrix, and so on. This matrix is definitely not positive definite, because if we take
+\[
+\vec{e}_2=
+\begin{pmatrix}
+0\\
+1\\
+0
+\end{pmatrix},
+\]
+then
+\[
+\vec{e}_2^{\,T}
+\begin{pmatrix}
+3 & 2 & -\frac{7}{2}\\[0.3em]
+2 & -1 & \frac{9}{2}\\[0.3em]
+-\frac{7}{2} & \frac{9}{2} & 5
+\end{pmatrix}
+\vec{e}_2=-1.
+\]
+Since $\vec{e}_2\neq \vec{0}$ and the value is negative, this matrix is not positive definite.
+
+\item Let
+\[
+\vec{x}=
+\begin{pmatrix}
+x_1\\
+x_2\\
+x_3\\
+x_4
+\end{pmatrix}.
+\]
+Then, the quadratic form can be written as
+\[
+\vec{x}^{\,T}
+\begin{pmatrix}
+1 & 2 & -1 & 0\\
+2 & 5 & 0 & -1\\
+-1 & 0 & 6 & -\frac{1}{2}\\[0.3em]
+0 & -1 & -\frac{1}{2} & 4
+\end{pmatrix}
+\vec{x}
+\]
+using the same "trick" from part (a). Call this matrix $A$. Since $A$ is symmetric, we can use the fact that a symmetric $n\times n$ matrix is positive definite if and only if it is regular and has positive pivots. For that criterion, we do ordinary Gaussian elimination without any row swaps and check the pivots that appear. Let's start with
+\[
+A=
+\begin{pmatrix}
+1 & 2 & -1 & 0\\
+2 & 5 & 0 & -1\\
+-1 & 0 & 6 & -\frac{1}{2}\\[0.3em]
+0 & -1 & -\frac{1}{2} & 4
+\end{pmatrix}.
+\]
+First, eliminate below the $(1,1)$ entry:
+\[
+R_2\leftarrow R_2-2R_1,
+\qquad
+R_3\leftarrow R_3+R_1.
+\]
+This gives
+\[
+\begin{pmatrix}
+1 & 2 & -1 & 0\\
+0 & 1 & 2 & -1\\
+0 & 2 & 5 & -\frac{1}{2}\\[0.3em]
+0 & -1 & -\frac{1}{2} & 4
+\end{pmatrix}.
+\]
+Now, eliminate below the $(2,2)$ entry:
+\[
+R_3\leftarrow R_3-2R_2,
+\qquad
+R_4\leftarrow R_4+R_2.
+\]
+This gives
+\[
+\begin{pmatrix}
+1 & 2 & -1 & 0\\
+0 & 1 & 2 & -1\\
+0 & 0 & 1 & \frac{3}{2}\\[0.3em]
+0 & 0 & \frac{3}{2} & 3
+\end{pmatrix}.
+\]
+Finally, eliminate below the $(3,3)$ entry:
+\[
+R_4\leftarrow R_4-\frac{3}{2}R_3.
+\]
+That gives
+\[
+U=
+\begin{pmatrix}
+1 & 2 & -1 & 0\\
+0 & 1 & 2 & -1\\
+0 & 0 & 1 & \frac{3}{2}\\[0.3em]
+0 & 0 & 0 & \frac{3}{4}
+\end{pmatrix}.
+\]
+The pivots from $U$ are
+\[
+1,\quad 1,\quad 1,\quad \frac{3}{4}.
+\]
+All of these are positive:
+\[
+1>0,\qquad 1>0,\qquad 1>0,\qquad \frac{3}{4}>0.
+\]
+Also, because we did the elimination without row swaps and none of these pivots are zero, the matrix is regular. Therefore, $A$ is positive definite.
+\end{enumerate}
+
+\newpage
+
+\begin{problem}[Problem 4]
+\begin{enumerate}[label=(\alph*)]
+\item Find the Gram matrix $K$ for the monomials $1,x,x^2,x^3$ using the $L^2$ inner product on $[-1,1]$. Is $K$ positive definite?
+\item Find the Gram matrix for the same monomials but using the weighted inner product
+\[
+\langle f,g\rangle=\int_0^1f(x)g(x)(1+x)\,dx.
+\]
+Is this matrix positive definite?
+\end{enumerate}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+f_1(x)=1,\qquad f_2(x)=x,\qquad f_3(x)=x^2,\qquad f_4(x)=x^3.
+\]
+The Gram matrix is defined by
+\[
+K=(\langle f_i,f_j\rangle),
+\]
+so here
+\[
+K_{ij}=\int_{-1}^1 x^{i-1}x^{j-1}\,dx=\int_{-1}^1 x^{i+j-2}\,dx.
+\]
+On the interval $[-1,1]$, the integral of an odd power of $x$ is $0$, while
+\[
+\int_{-1}^1 x^{2m}\,dx=\frac{2}{2m+1}.
+\]
+Using that, we get
+\[
+K=
+\begin{pmatrix}
+2 & 0 & \frac{2}{3} & 0\\[0.4em]
+0 & \frac{2}{3} & 0 & \frac{2}{5}\\[0.4em]
+\frac{2}{3} & 0 & \frac{2}{5} & 0\\[0.4em]
+0 & \frac{2}{5} & 0 & \frac{2}{7}
+\end{pmatrix}.
+\]
+This matrix is symmetric, so we can use the same test as in Problem 3: a symmetric matrix is positive definite if and only if it is regular and has positive pivots. Again, this means we do ordinary Gaussian elimination without any row swaps and then read off the pivots. Let's start with
+\[
+K=
+\begin{pmatrix}
+2 & 0 & \frac{2}{3} & 0\\[0.4em]
+0 & \frac{2}{3} & 0 & \frac{2}{5}\\[0.4em]
+\frac{2}{3} & 0 & \frac{2}{5} & 0\\[0.4em]
+0 & \frac{2}{5} & 0 & \frac{2}{7}
+\end{pmatrix}.
+\]
+Eliminate below the first two diagonal entries:
+\[
+R_3\leftarrow R_3-\frac{1}{3}R_1,
+\qquad
+R_4\leftarrow R_4-\frac{3}{5}R_2.
+\]
+This gives
+\[
+U=
+\begin{pmatrix}
+2 & 0 & \frac{2}{3} & 0\\[0.4em]
+0 & \frac{2}{3} & 0 & \frac{2}{5}\\[0.4em]
+0 & 0 & \frac{8}{45} & 0\\[0.4em]
+0 & 0 & 0 & \frac{8}{175}
+\end{pmatrix}.
+\]
+The pivots are
+\[
+2,\qquad \frac{2}{3},\qquad \frac{8}{45},\qquad \frac{8}{175}.
+\]
+All of them are positive. Also, because we did the elimination without row swaps and none of these pivots are zero, $K$ is regular and has positive pivots. Therefore, $K$ is positive definite.
+
+\item Now, the inner product is
+\[
+\langle f,g\rangle=\int_0^1f(x)g(x)(1+x)\,dx,
+\]
+so
+\[
+K_{ij}=\int_0^1 x^{i+j-2}(1+x)\,dx
+=\int_0^1 x^{i+j-2}\,dx+\int_0^1 x^{i+j-1}\,dx.
+\]
+That means
+\[
+K_{ij}=\frac{1}{i+j-1}+\frac{1}{i+j}.
+\]
+Working this out entry by entry with a calculator gives
+\[
+K=
+\begin{pmatrix}
+\frac{3}{2} & \frac{5}{6} & \frac{7}{12} & \frac{9}{20}\\[0.5em]
+\frac{5}{6} & \frac{7}{12} & \frac{9}{20} & \frac{11}{30}\\[0.5em]
+\frac{7}{12} & \frac{9}{20} & \frac{11}{30} & \frac{13}{42}\\[0.5em]
+\frac{9}{20} & \frac{11}{30} & \frac{13}{42} & \frac{15}{56}
+\end{pmatrix}.
+\]
+This matrix is also symmetric, so we can use the same pivot test. Again, we do ordinary Gaussian elimination without any row swaps. Start with the matrix above and eliminate below the $(1,1)$ entry:
+\[
+R_2\leftarrow R_2-\frac{5}{9}R_1,
+\qquad
+R_3\leftarrow R_3-\frac{7}{18}R_1,
+\qquad
+R_4\leftarrow R_4-\frac{3}{10}R_1.
+\]
+This gives
+\[
+\begin{pmatrix}
+\frac{3}{2} & \frac{5}{6} & \frac{7}{12} & \frac{9}{20}\\[0.5em]
+0 & \frac{13}{108} & \frac{17}{135} & \frac{7}{60}\\[0.5em]
+0 & \frac{17}{135} & \frac{151}{1080} & \frac{113}{840}\\[0.5em]
+0 & \frac{7}{60} & \frac{113}{840} & \frac{93}{700}
+\end{pmatrix}.
+\]
+Now, eliminate below the $(2,2)$ entry:
+\[
+R_3\leftarrow R_3-\frac{68}{65}R_2,
+\qquad
+R_4\leftarrow R_4-\frac{63}{65}R_2.
+\]
+This gives
+\[
+\begin{pmatrix}
+\frac{3}{2} & \frac{5}{6} & \frac{7}{12} & \frac{9}{20}\\[0.5em]
+0 & \frac{13}{108} & \frac{17}{135} & \frac{7}{60}\\[0.5em]
+0 & 0 & \frac{21}{2600} & \frac{227}{18200}\\[0.5em]
+0 & 0 & \frac{227}{18200} & \frac{9}{455}
+\end{pmatrix}.
+\]
+Finally, eliminate below the $(3,3)$ entry:
+\[
+R_4\leftarrow R_4-\frac{227}{147}R_3.
+\]
+So we end up with
+\[
+U=
+\begin{pmatrix}
+\frac{3}{2} & \frac{5}{6} & \frac{7}{12} & \frac{9}{20}\\[0.5em]
+0 & \frac{13}{108} & \frac{17}{135} & \frac{7}{60}\\[0.5em]
+0 & 0 & \frac{21}{2600} & \frac{227}{18200}\\[0.5em]
+0 & 0 & 0 & \frac{107}{205800}
+\end{pmatrix}.
+\]
+Because no row swaps were used, the pivots are
+\[
+\frac{3}{2},\qquad \frac{13}{108},\qquad \frac{21}{2600},\qquad \frac{107}{205800}.
+\]
+Again, all of them are positive, and because we did the elimination without row swaps and none of these pivots are zero, $K$ is regular and has positive pivots. Therefore, $K$ is positive definite.
+\end{enumerate}
+
+\newpage
+
+\begin{problem}[Problem 5]
+\begin{enumerate}[label=(\alph*)]
+\item The physicists' \textbf{Hermite polynomials} are orthogonal with respect to the weighted inner product
+\[
+\int_{-\infty}^\infty f(t)g(t)e^{-t^2}\,dt.
+\]
+Find the first five monic Hermite polynomials (i.e., apply the Gram-Schmidt process to $1,t,t^2,t^3,t^4$ with respect to this inner product). Note that $\int_{-\infty}^\infty e^{-t^2}\,dt=\sqrt{\pi}$.
+\item The probabilists prefer to use the inner product
+\[
+\int_{-\infty}^\infty f(t)g(t)e^{-t^2/2}\,dt.
+\]
+Find the first five of their monic Hermite polynomials.
+\item Give a change of variable that transforms the physicists' version to the probabilists' version.
+\end{enumerate}
+\end{problem}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+\langle f,g\rangle_{\mathrm{ph}}
+=\int_{-\infty}^{\infty} f(t)g(t)e^{-t^2}\,dt.
+\]
+As we observed in class, because the weight $e^{-t^2}$ is even, every odd polynomial is automatically orthogonal to every even polynomial. So when we do Gram-Schmidt, many projection terms vanish right away. We start with
+\[
+p_0(t)=1.
+\]
+Next,
+\[
+p_1(t)=t,
+\]
+since $\langle t,1\rangle_{\mathrm{ph}}=0$ by oddness. For the quadratic one, start with $t^2$ and subtract its projection onto $p_0$:
+\[
+p_2(t)=t^2-\frac{\langle t^2,1\rangle_{\mathrm{ph}}}{\langle 1,1\rangle_{\mathrm{ph}}}.
+\]
+We already know
+\[
+\langle 1,1\rangle_{\mathrm{ph}}
+=\int_{-\infty}^{\infty} e^{-t^2}\,dt
+=\sqrt{\pi}.
+\]
+Also,
+\[
+\langle t^2,1\rangle_{\mathrm{ph}}
+=\int_{-\infty}^{\infty} t^2e^{-t^2}\,dt.
+\]
+To compute this, use integration by parts with
+\[
+u=t,\qquad dv=te^{-t^2}\,dt.
+\]
+Then,
+\[
+du=dt,\qquad v=-\frac{1}{2}e^{-t^2},
+\]
+so
+\[
+\int_{-\infty}^{\infty} t^2e^{-t^2}\,dt
+=\left[-\frac{1}{2}te^{-t^2}\right]_{-\infty}^{\infty}
++\frac{1}{2}\int_{-\infty}^{\infty} e^{-t^2}\,dt
+=\frac{1}{2}\sqrt{\pi}.
+\]
+Therefore,
+\[
+p_2(t)=t^2-\frac{\frac{1}{2}\sqrt{\pi}}{\sqrt{\pi}}
+=t^2-\frac{1}{2}.
+\]
+
+For the cubic one, oddness tells us we only need to remove the $t$ part:
+\[
+p_3(t)=t^3-\frac{\langle t^3,t\rangle_{\mathrm{ph}}}{\langle t,t\rangle_{\mathrm{ph}}}t.
+\]
+Here,
+\[
+\langle t,t\rangle_{\mathrm{ph}}
+=\int_{-\infty}^{\infty} t^2e^{-t^2}\,dt
+=\frac{1}{2}\sqrt{\pi},
+\]
+and
+\[
+\langle t^3,t\rangle_{\mathrm{ph}}
+=\int_{-\infty}^{\infty} t^4e^{-t^2}\,dt.
+\]
+Again, use integration by parts, this time with
+\[
+u=t^3,\qquad dv=te^{-t^2}\,dt.
+\]
+Then,
+\[
+du=3t^2\,dt,\qquad v=-\frac{1}{2}e^{-t^2},
+\]
+so
+\[
+\int_{-\infty}^{\infty} t^4e^{-t^2}\,dt
+=\left[-\frac{1}{2}t^3e^{-t^2}\right]_{-\infty}^{\infty}
++\frac{3}{2}\int_{-\infty}^{\infty} t^2e^{-t^2}\,dt
+=\frac{3}{4}\sqrt{\pi}.
+\]
+Therefore,
+\[
+p_3(t)=t^3-\frac{\frac{3}{4}\sqrt{\pi}}{\frac{1}{2}\sqrt{\pi}}t
+=t^3-\frac{3}{2}t.
+\]
+
+For the quartic one, parity tells us we only need to subtract the even earlier polynomials:
+\[
+p_4(t)=t^4-\frac{\langle t^4,p_2\rangle_{\mathrm{ph}}}{\langle p_2,p_2\rangle_{\mathrm{ph}}}p_2
+-\frac{\langle t^4,p_0\rangle_{\mathrm{ph}}}{\langle p_0,p_0\rangle_{\mathrm{ph}}}p_0.
+\]
+\[
+\langle t^4,p_0\rangle_{\mathrm{ph}}
+=\int_{-\infty}^{\infty} t^4e^{-t^2}\,dt
+=\frac{3}{4}\sqrt{\pi},
+\qquad
+\langle p_0,p_0\rangle_{\mathrm{ph}}=\sqrt{\pi}.
+\]
+So the coefficient on $p_0$ is
+\[
+\frac{\langle t^4,p_0\rangle_{\mathrm{ph}}}{\langle p_0,p_0\rangle_{\mathrm{ph}}}
+=\frac{3}{4}.
+\]
+Next,
+\[
+\langle p_2,p_2\rangle_{\mathrm{ph}}
+=\int_{-\infty}^{\infty} \left(t^2-\frac{1}{2}\right)^2e^{-t^2}\,dt.
+\]
+Expanding gives
+\[
+\langle p_2,p_2\rangle_{\mathrm{ph}}
+=\int_{-\infty}^{\infty} \left(t^4-t^2+\frac{1}{4}\right)e^{-t^2}\,dt
+=\frac{3}{4}\sqrt{\pi}-\frac{1}{2}\sqrt{\pi}+\frac{1}{4}\sqrt{\pi}
+=\frac{1}{2}\sqrt{\pi}.
+\]
+Also,
+\[
+\langle t^4,p_2\rangle_{\mathrm{ph}}
+=\int_{-\infty}^{\infty} t^4\left(t^2-\frac{1}{2}\right)e^{-t^2}\,dt
+=\int_{-\infty}^{\infty} \left(t^6-\frac{1}{2}t^4\right)e^{-t^2}\,dt.
+\]
+So we still need
+\[
+\int_{-\infty}^{\infty} t^6e^{-t^2}\,dt.
+\]
+Use integration by parts once more with
+\[
+u=t^5,\qquad dv=te^{-t^2}\,dt.
+\]
+Then,
+\[
+du=5t^4\,dt,\qquad v=-\frac{1}{2}e^{-t^2},
+\]
+which gives
+\[
+\int_{-\infty}^{\infty} t^6e^{-t^2}\,dt
+=\left[-\frac{1}{2}t^5e^{-t^2}\right]_{-\infty}^{\infty}
++\frac{5}{2}\int_{-\infty}^{\infty} t^4e^{-t^2}\,dt
+=\frac{15}{8}\sqrt{\pi}.
+\]
+Therefore,
+\[
+\langle t^4,p_2\rangle_{\mathrm{ph}}
+=\frac{15}{8}\sqrt{\pi}-\frac{1}{2}\cdot\frac{3}{4}\sqrt{\pi}
+=\frac{3}{2}\sqrt{\pi},
+\]
+so the coefficient on $p_2$ is
+\[
+\frac{\langle t^4,p_2\rangle_{\mathrm{ph}}}{\langle p_2,p_2\rangle_{\mathrm{ph}}}
+=\frac{\frac{3}{2}\sqrt{\pi}}{\frac{1}{2}\sqrt{\pi}}
+=3.
+\]
+Putting that together,
+\[
+p_4(t)=t^4-3\left(t^2-\frac{1}{2}\right)-\frac{3}{4}
+=t^4-3t^2+\frac{3}{4}.
+\]
+
+So the first five monic physicists' Hermite polynomials are
+\[
+1,\qquad
+t,\qquad
+t^2-\frac{1}{2},\qquad
+t^3-\frac{3}{2}t,\qquad
+t^4-3t^2+\frac{3}{4}.
+\]
+
+\item Now, let's use the inner product
+\[
+\langle f,g\rangle_{\mathrm{pr}}
+=\int_{-\infty}^{\infty} f(t)g(t)e^{-t^2/2}\,dt.
+\]
+Again, the weight is even, so odd polynomials are orthogonal to even polynomials. So then we use the same Gram-Schmidt setup. We begin with
+\[
+q_0(t)=1,
+\qquad
+q_1(t)=t.
+\]
+First, compute
+\[
+\langle 1,1\rangle_{\mathrm{pr}}
+=\int_{-\infty}^{\infty} e^{-t^2/2}\,dt.
+\]
+Using the substitution $t=\sqrt{2}\,u$, we get
+\[
+\langle 1,1\rangle_{\mathrm{pr}}
+=\sqrt{2}\int_{-\infty}^{\infty} e^{-u^2}\,du
+=\sqrt{2\pi}.
+\]
+
+For the quadratic one,
+\[
+q_2(t)=t^2-\frac{\langle t^2,1\rangle_{\mathrm{pr}}}{\langle 1,1\rangle_{\mathrm{pr}}}.
+\]
+Now,
+\[
+\langle t^2,1\rangle_{\mathrm{pr}}
+=\int_{-\infty}^{\infty} t^2e^{-t^2/2}\,dt.
+\]
+Use integration by parts with
+\[
+u=t,\qquad dv=te^{-t^2/2}\,dt.
+\]
+Then,
+\[
+du=dt,\qquad v=-e^{-t^2/2},
+\]
+so
+\[
+\int_{-\infty}^{\infty} t^2e^{-t^2/2}\,dt
+=\left[-te^{-t^2/2}\right]_{-\infty}^{\infty}
++\int_{-\infty}^{\infty} e^{-t^2/2}\,dt
+=\sqrt{2\pi}.
+\]
+Therefore,
+\[
+q_2(t)=t^2-\frac{\sqrt{2\pi}}{\sqrt{2\pi}}
+=t^2-1.
+\]
+
+For the cubic one,
+\[
+q_3(t)=t^3-\frac{\langle t^3,t\rangle_{\mathrm{pr}}}{\langle t,t\rangle_{\mathrm{pr}}}t.
+\]
+Here,
+\[
+\langle t,t\rangle_{\mathrm{pr}}
+=\int_{-\infty}^{\infty} t^2e^{-t^2/2}\,dt
+=\sqrt{2\pi},
+\]
+and
+\[
+\langle t^3,t\rangle_{\mathrm{pr}}
+=\int_{-\infty}^{\infty} t^4e^{-t^2/2}\,dt.
+\]
+Using integration by parts with
+\[
+u=t^3,\qquad dv=te^{-t^2/2}\,dt,
+\]
+we get
+\[
+du=3t^2\,dt,\qquad v=-e^{-t^2/2},
+\]
+so
+\[
+\int_{-\infty}^{\infty} t^4e^{-t^2/2}\,dt
+=\left[-t^3e^{-t^2/2}\right]_{-\infty}^{\infty}
++3\int_{-\infty}^{\infty} t^2e^{-t^2/2}\,dt
+=3\sqrt{2\pi}.
+\]
+Therefore,
+\[
+q_3(t)=t^3-\frac{3\sqrt{2\pi}}{\sqrt{2\pi}}t
+=t^3-3t.
+\]
+
+For the quartic one,
+\[
+q_4(t)=t^4-\frac{\langle t^4,q_2\rangle_{\mathrm{pr}}}{\langle q_2,q_2\rangle_{\mathrm{pr}}}q_2
+-\frac{\langle t^4,q_0\rangle_{\mathrm{pr}}}{\langle q_0,q_0\rangle_{\mathrm{pr}}}q_0.
+\]
+We already have
+\[
+\langle t^4,q_0\rangle_{\mathrm{pr}}
+=\int_{-\infty}^{\infty} t^4e^{-t^2/2}\,dt
+=3\sqrt{2\pi},
+\qquad
+\langle q_0,q_0\rangle_{\mathrm{pr}}=\sqrt{2\pi},
+\]
+so the coefficient on $q_0$ is $3$. Next,
+\[
+\langle q_2,q_2\rangle_{\mathrm{pr}}
+=\int_{-\infty}^{\infty} (t^2-1)^2e^{-t^2/2}\,dt.
+\]
+Expanding gives
+\[
+\langle q_2,q_2\rangle_{\mathrm{pr}}
+=\int_{-\infty}^{\infty} (t^4-2t^2+1)e^{-t^2/2}\,dt
+=3\sqrt{2\pi}-2\sqrt{2\pi}+\sqrt{2\pi}
+=2\sqrt{2\pi}.
+\]
+Also,
+\[
+\langle t^4,q_2\rangle_{\mathrm{pr}}
+=\int_{-\infty}^{\infty} t^4(t^2-1)e^{-t^2/2}\,dt
+=\int_{-\infty}^{\infty} (t^6-t^4)e^{-t^2/2}\,dt.
+\]
+So we still need
+\[
+\int_{-\infty}^{\infty} t^6e^{-t^2/2}\,dt.
+\]
+Use integration by parts again with
+\[
+u=t^5,\qquad dv=te^{-t^2/2}\,dt.
+\]
+Then,
+\[
+du=5t^4\,dt,\qquad v=-e^{-t^2/2},
+\]
+which gives
+\[
+\int_{-\infty}^{\infty} t^6e^{-t^2/2}\,dt
+=\left[-t^5e^{-t^2/2}\right]_{-\infty}^{\infty}
++5\int_{-\infty}^{\infty} t^4e^{-t^2/2}\,dt
+=15\sqrt{2\pi}.
+\]
+Therefore,
+\[
+\langle t^4,q_2\rangle_{\mathrm{pr}}
+=15\sqrt{2\pi}-3\sqrt{2\pi}
+=12\sqrt{2\pi},
+\]
+so the coefficient on $q_2$ is
+\[
+\frac{\langle t^4,q_2\rangle_{\mathrm{pr}}}{\langle q_2,q_2\rangle_{\mathrm{pr}}}
+=\frac{12\sqrt{2\pi}}{2\sqrt{2\pi}}
+=6.
+\]
+Putting that together,
+\[
+q_4(t)=t^4-6(t^2-1)-3=t^4-6t^2+3.
+\]
+
+So the first five monic probabilists' Hermite polynomials are
+\[
+1,\qquad
+t,\qquad
+t^2-1,\qquad
+t^3-3t,\qquad
+t^4-6t^2+3.
+\]
+
+\item A clean change of variable is
+\[
+u=\sqrt{2}\,t.
+\]
+Then,
+\[
+t=\frac{u}{\sqrt{2}},
+\qquad
+dt=\frac{du}{\sqrt{2}},
+\qquad
+e^{-t^2}=e^{-u^2/2}.
+\]
+So if we start with the physicists' inner product, then
+\[
+\int_{-\infty}^{\infty} f(t)g(t)e^{-t^2}\,dt
+=\frac{1}{\sqrt{2}}\int_{-\infty}^{\infty}
+f\!\left(\frac{u}{\sqrt{2}}\right)
+g\!\left(\frac{u}{\sqrt{2}}\right)
+e^{-u^2/2}\,du.
+\]
+Essentially, after the rescaling $t=u/\sqrt{2}$, the weight $e^{-t^2}$ turns into the weight $e^{-u^2/2}$, so the probabilists' polynomials should come from the physicists' polynomials by rescaling the variable. Now, let $p_n$ be the monic physicists' polynomial of degree $n$. Since it is monic, it starts with
+\[
+p_n(t)=t^n+\text{lower-degree terms}.
+\]
+If we replace $t$ by $u/\sqrt{2}$, then
+\[
+p_n\!\left(\frac{u}{\sqrt{2}}\right)
+=\frac{u^n}{2^{n/2}}+\text{lower-degree terms}.
+\]
+So this has the right shape, but it is no longer monic. To make the leading coefficient equal to $1$ again, we multiply by $2^{n/2}$, which means the matching rule is
+\[
+q_n(u)=2^{n/2}p_n\!\left(\frac{u}{\sqrt{2}}\right).
+\]
+Here, $q_n$ is the monic probabilists' polynomial of degree $n$. We can check this against the formulas from parts (a) and (b). For example,
+\[
+2^{2/2}p_2\!\left(\frac{u}{\sqrt{2}}\right)
+=2\left[\left(\frac{u}{\sqrt{2}}\right)^2-\frac{1}{2}\right]
+=u^2-1
+=q_2(u),
+\]
+and
+\[
+2^{3/2}p_3\!\left(\frac{u}{\sqrt{2}}\right)
+=2^{3/2}\left[\left(\frac{u}{\sqrt{2}}\right)^3-\frac{3}{2}\left(\frac{u}{\sqrt{2}}\right)\right]
+=u^3-3u
+=q_3(u).
+\]
+So part (b) is exactly the rescaled monic version of part (a).
+\end{enumerate}
+
+\end{document}
